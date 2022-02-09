@@ -37,7 +37,7 @@ services:
         #####################
         #WAY
         #####################
-          - ./web/cron/crontab_todo:/etc/crontab
+        - ./web/cron/crontab_todo:/etc/crontab
         - ${APP_CODE_TODO_PATH_HOST}:${APP_CODE_TODO_PATH_CONTAINER}   
       expose:
         - "9000"
