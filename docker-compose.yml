@@ -16,7 +16,10 @@ services:
         - todo
       links:
         - todo 
-      #networks:
+      ##########  
+      #networks
+      ##########
+      networks:
         - frontend
         - backend
 
@@ -31,8 +34,10 @@ services:
           - WORK_DIR=${APP_CODE_TODO_PATH_CONTAINER}
           - NODE_VERSION=${NODE_VERSION}
       volumes:
-        - #WAY
-        - ./web/cron/crontab_todo:/etc/crontab
+        #####################
+        #WAY
+        #####################
+          - ./web/cron/crontab_todo:/etc/crontab
         - ${APP_CODE_TODO_PATH_HOST}:${APP_CODE_TODO_PATH_CONTAINER}   
       expose:
         - "9000"
@@ -55,8 +60,9 @@ services:
       volumes:
           - ./consumers/supervisor/todo.conf:/etc/supervisor/conf.d/todo.conf 
           - ${APP_CODE_TODO_PATH_HOST}:${APP_CODE_TODO_PATH_CONTAINER}   
-      
+      #######################
         #PORT
+      #######################
       expose:
         - "9000"
 
@@ -84,7 +90,9 @@ services:
         - "${MYSQL_PORT}:3306"
       networks:
         - backend
-
+        ####################
+        #redis
+        ####################
     redis:
       build: ./redis
       volumes:

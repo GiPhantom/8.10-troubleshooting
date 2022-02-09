@@ -5,7 +5,9 @@ RUN if [ ${CHANGE_SOURCE} = true ]; then \
     # Change application source from dl-cdn.alpinelinux.org to aliyun source
     sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/' /etc/apk/repositories \
 ;fi
+##############################
 #Attach www-data user to an already existing group with -Gy
+#############################################################
 RUN apk update \
     && apk upgrade \
     && apk add --no-cache openssl \

@@ -1,5 +1,7 @@
 FROM python:2.7-stretch
+#######################
 # uWSGI:
+#######################
 USER root
 RUN pip install uwsgi
 
@@ -14,24 +16,27 @@ ENV UWSGI_CHEAPER 2
 
 # By default, when on demand, run up to 16 processes
 ENV UWSGI_PROCESSES 16
-
+########################
 # CRON:
+########################
 USER root
 ARG INSTALL_CRON=false
 RUN if [ ${INSTALL_CRON} = true ]; then \
     apt-get update -yqq ; \
     apt-get -y install cron \
 ;fi
-
+####################
 # SUPERVISOR:
+#####################
 USER root
 ARG INSTALL_SUPERVISOR=false
 RUN if [ ${INSTALL_SUPERVISOR} = true ]; then \
     apt-get update -yqq ; \
     apt-get -y install supervisor \
 ;fi
-
+###################
 # NPM:
+###################
 USER root
 ARG INSTALL_NPM=false
 ARG NODE_VERSION
@@ -42,29 +47,33 @@ RUN if [ ${INSTALL_NPM} = true ]; then \
     apt-get install nodejs npm ; \
     apt-get -y install nodejs \
 ;fi
-
+####################
 # GIT:
+####################
 USER root
 ARG INSTALL_GIT=false
 RUN if [ ${INSTALL_GIT} = true ]; then \
     apt-get -y install git \
 ;fi
-
+####################
 # ZIP:
+####################
 USER root
 ARG INSTALL_ZIP=false
 RUN if [ ${INSTALL_ZIP} = true ]; then \
     apt-get -y install zip unzip \
 ;fi
-
+######################
 # Image optimizers:
+######################
 USER root
 ARG INSTALL_IMAGE_OPTIMIZERS=false
 RUN if [ ${INSTALL_IMAGE_OPTIMIZERS} = true ]; then \
     apt-get install -y jpegoptim optipng pngquant gifsicle \
 ;fi
-
+#####################
 # pgsql client
+####################
 ARG INSTALL_PG_CLIENT=false
 
 RUN if [ ${INSTALL_PG_CLIENT} = true ]; then \
