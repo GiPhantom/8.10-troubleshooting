@@ -78,8 +78,8 @@ RUN if [ ${INSTALL_PG_CLIENT} = true ]; then \
 COPY ./requirements.txt /opt/
 RUN pip install -r /opt/requirements.txt
 COPY ./supervisor/supervisord.conf /etc/supervisor/
-ARG WORK_DIR=/var/www
+ARG WORK_DIR=/var/www/todo
 RUN usermod -u 1000 www-data
 WORKDIR ${WORK_DIR}
 CMD [ "/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf" ]
-expose 9000
+EXPOSE 9000

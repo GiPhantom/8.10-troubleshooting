@@ -17,6 +17,8 @@ services:
       links:
         - todo 
       #networks:
+        - frontend
+        - backend
 
     todo:
       build:
@@ -30,6 +32,7 @@ services:
           - NODE_VERSION=${NODE_VERSION}
       volumes:
         - #WAY
+        - ./web/cron/crontab_todo:/etc/crontab
         - ${APP_CODE_TODO_PATH_HOST}:${APP_CODE_TODO_PATH_CONTAINER}   
       expose:
         - "9000"
@@ -52,8 +55,11 @@ services:
       volumes:
           - ./consumers/supervisor/todo.conf:/etc/supervisor/conf.d/todo.conf 
           - ${APP_CODE_TODO_PATH_HOST}:${APP_CODE_TODO_PATH_CONTAINER}   
+      
+        #PORT
       expose:
-        - #PORT
+        - "9000"
+
       depends_on:
         - db
         - redis
@@ -80,11 +86,11 @@ services:
         - backend
 
     redis:
-      ##build
+      build: ./redis
       volumes:
         - ${DATA_PATH_HOST}/redis:/data
       ports:
-        - "${REDIS_PORT}:#port"
+        - "${REDIS_PORT}:6379"
       networks:
         - backend            
 
